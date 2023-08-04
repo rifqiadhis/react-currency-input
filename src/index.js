@@ -119,19 +119,19 @@ class CurrencyInput extends Component {
      * @see https://facebook.github.io/react/docs/react-component.html#componentdidmount
      */
     componentDidMount(){
-        let node = ReactDOM.findDOMNode(this.theInput);
-        let selectionStart, selectionEnd;
+        // let node = ReactDOM.findDOMNode(this.theInput);
+        // let selectionStart, selectionEnd;
 
-        if (this.props.autoFocus) {
-            this.theInput.focus();
-            selectionEnd = this.state.maskedValue.length - this.props.suffix.length;
-            selectionStart = selectionEnd;
-        } else {
-            selectionEnd = Math.min(node.selectionEnd, this.theInput.value.length - this.props.suffix.length);
-            selectionStart = Math.min(node.selectionStart, selectionEnd);
-        }
+        // if (this.props.autoFocus) {
+        //     this.theInput.focus();
+        //     selectionEnd = this.state.maskedValue.length - this.props.suffix.length;
+        //     selectionStart = selectionEnd;
+        // } else {
+        //     selectionEnd = Math.min(node.selectionEnd, this.theInput.value.length - this.props.suffix.length);
+        //     selectionStart = Math.min(node.selectionStart, selectionEnd);
+        // }
 
-        this.setSelectionRange(node, selectionStart, selectionEnd);
+        // this.setSelectionRange(node, selectionStart, selectionEnd);
     }
 
 
@@ -141,9 +141,9 @@ class CurrencyInput extends Component {
      * @see https://facebook.github.io/react/docs/react-component.html#componentwillupdate
      */
     componentWillUpdate() {
-        let node = ReactDOM.findDOMNode(this.theInput);
-        this.inputSelectionStart = node.selectionStart;
-        this.inputSelectionEnd = node.selectionEnd;
+        // let node = ReactDOM.findDOMNode(this.theInput);
+        // this.inputSelectionStart = node.selectionStart;
+        // this.inputSelectionEnd = node.selectionEnd;
     }
 
 
@@ -153,39 +153,39 @@ class CurrencyInput extends Component {
      * @see https://facebook.github.io/react/docs/react-component.html#componentdidupdate
      */
     componentDidUpdate(prevProps, prevState){
-        const { decimalSeparator } = this.props;
-        let node = ReactDOM.findDOMNode(this.theInput);
-        let isNegative = (this.theInput.value.match(/-/g) || []).length % 2 === 1;
-        let minPos = this.props.prefix.length + (isNegative ? 1 : 0);
-        let selectionEnd = Math.max(minPos, Math.min(this.inputSelectionEnd, this.theInput.value.length - this.props.suffix.length));
-        let selectionStart = Math.max(minPos, Math.min(this.inputSelectionEnd, selectionEnd));
+        // const { decimalSeparator } = this.props;
+        // let node = ReactDOM.findDOMNode(this.theInput);
+        // let isNegative = (this.theInput.value.match(/-/g) || []).length % 2 === 1;
+        // let minPos = this.props.prefix.length + (isNegative ? 1 : 0);
+        // let selectionEnd = Math.max(minPos, Math.min(this.inputSelectionEnd, this.theInput.value.length - this.props.suffix.length));
+        // let selectionStart = Math.max(minPos, Math.min(this.inputSelectionEnd, selectionEnd));
 
-        let regexEscapeRegex = /[-[\]{}()*+?.,\\^$|#\s]/g;
-        let separatorsRegex = new RegExp(decimalSeparator.replace(regexEscapeRegex, '\\$&') + '|' + this.props.thousandSeparator.replace(regexEscapeRegex, '\\$&'), 'g');
-        let currSeparatorCount = (this.state.maskedValue.match(separatorsRegex) || []).length;
-        let prevSeparatorCount = (prevState.maskedValue.match(separatorsRegex) || []).length;
-        let adjustment = Math.max(currSeparatorCount - prevSeparatorCount, 0);
+        // let regexEscapeRegex = /[-[\]{}()*+?.,\\^$|#\s]/g;
+        // let separatorsRegex = new RegExp(decimalSeparator.replace(regexEscapeRegex, '\\$&') + '|' + this.props.thousandSeparator.replace(regexEscapeRegex, '\\$&'), 'g');
+        // let currSeparatorCount = (this.state.maskedValue.match(separatorsRegex) || []).length;
+        // let prevSeparatorCount = (prevState.maskedValue.match(separatorsRegex) || []).length;
+        // let adjustment = Math.max(currSeparatorCount - prevSeparatorCount, 0);
 
-        selectionEnd = selectionEnd + adjustment;
-        selectionStart = selectionStart + adjustment;
+        // selectionEnd = selectionEnd + adjustment;
+        // selectionStart = selectionStart + adjustment;
 
-        const precision = Number(this.props.precision);
+        // const precision = Number(this.props.precision);
 
-        let baselength = this.props.suffix.length
-            + this.props.prefix.length
-            + (precision > 0 ? decimalSeparator.length : 0) // if precision is 0 there will be no decimal part
-            + precision
-            + 1; // This is to account for the default '0' value that comes before the decimal separator
+        // let baselength = this.props.suffix.length
+        //     + this.props.prefix.length
+        //     + (precision > 0 ? decimalSeparator.length : 0) // if precision is 0 there will be no decimal part
+        //     + precision
+        //     + 1; // This is to account for the default '0' value that comes before the decimal separator
 
-        if (this.state.maskedValue.length == baselength){
-            // if we are already at base length, position the cursor at the end.
-            selectionEnd = this.theInput.value.length - this.props.suffix.length;
-            selectionStart = selectionEnd;
-        }
+        // if (this.state.maskedValue.length == baselength){
+        //     // if we are already at base length, position the cursor at the end.
+        //     selectionEnd = this.theInput.value.length - this.props.suffix.length;
+        //     selectionStart = selectionEnd;
+        // }
 
-        this.setSelectionRange(node, selectionStart, selectionEnd);
-        this.inputSelectionStart = selectionStart;
-        this.inputSelectionEnd = selectionEnd;
+        // this.setSelectionRange(node, selectionStart, selectionEnd);
+        // this.inputSelectionStart = selectionStart;
+        // this.inputSelectionEnd = selectionEnd;
     }
 
     /**
